@@ -1,0 +1,3122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Stack Engineer Guide 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 1%;
+            color: #fff;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        body.dark-mode .skill-card {
+            background: rgba(30, 30, 45, 0.95);
+        }
+
+        body.dark-mode .card-title,
+        body.dark-mode .info-value,
+        body.dark-mode .project-title,
+        body.dark-mode .resource-title {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .card-content,
+        body.dark-mode .project-item {
+            color: #b0b0b0;
+        }
+
+        body.dark-mode .tech-tag,
+        body.dark-mode .resource-link {
+            background: #2a2a3e;
+            color: #a0a0b0;
+            border-color: #3a3a4e;
+        }
+
+        body.dark-mode .study-time {
+            background: #252535;
+            border-left-color: #667eea;
+        }
+
+        body.dark-mode .project-ideas {
+            background: #2a2a20;
+            border-left-color: #f39c12;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 2vh 1%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin-bottom: 2vh;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5vh;
+            background: linear-gradient(to right, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            color: #f0f0f0;
+        }
+
+        .progress-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2vh;
+            padding: 2% 4%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .progress-percentage {
+            background: rgba(46, 204, 113, 0.9);
+            padding: 1% 3%;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .reset-btn {
+            margin-top: 2vh;
+            padding: 2% 5%;
+            background: rgba(231, 76, 60, 0.9);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reset-btn:active {
+            transform: scale(0.95);
+            background: rgba(192, 57, 43, 0.9);
+        }
+
+        .controls-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 3%;
+            margin-bottom: 2vh;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2%;
+        }
+
+        .controls-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 1.5% 4%;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 2%;
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1.5%;
+            flex-wrap: wrap;
+            margin-top: 1%;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 1.5% 3%;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:active,
+        .filter-btn.active {
+            background: rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: scale(0.95);
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 1%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 1%;
+        }
+
+        .view-btn {
+            background: transparent;
+            border: none;
+            border-radius: 15px;
+            padding: 2% 4%;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .view-btn:active {
+            transform: scale(0.95);
+        }
+
+        .skill-card.list-view {
+            padding: 2%;
+        }
+
+        .skill-card.list-view .card-header {
+            margin-bottom: 0;
+        }
+
+        .skill-card.list-view .card-content,
+        .skill-card.list-view .difficulty-label,
+        .skill-card.list-view .progress-bar {
+            display: none;
+        }
+
+        .skill-card.list-view .level-badge {
+            font-size: 0.6rem;
+            padding: 1% 2.5%;
+        }
+
+        .skill-card.list-view .card-title {
+            font-size: 0.75rem;
+        }
+
+        .skill-card.hidden {
+            display: none;
+        }
+
+        .sort-buttons {
+            display: flex;
+            gap: 1.5%;
+            flex-wrap: wrap;
+            margin-top: 1%;
+        }
+
+        .sort-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 1.5% 3%;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sort-btn:active,
+        .sort-btn.active {
+            background: rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: scale(0.95);
+        }
+
+        .ph-companies {
+            margin-top: 3%;
+            padding-top: 3%;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .companies-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 2%;
+            display: flex;
+            align-items: center;
+            gap: 2%;
+        }
+
+        body.dark-mode .companies-title {
+            color: #e0e0e0;
+        }
+
+        .company-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5%;
+        }
+
+        .company-tag {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #fff;
+            padding: 1.5% 3%;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .communities-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 3%;
+            margin-bottom: 2vh;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .communities-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 2%;
+            text-align: center;
+        }
+
+        .community-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2%;
+        }
+
+        .community-item {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 3%;
+            display: flex;
+            align-items: center;
+            gap: 3%;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .community-item:active {
+            transform: scale(0.98);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .community-icon {
+            font-size: 1.5rem;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .community-info {
+            flex: 1;
+        }
+
+        .community-name {
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1%;
+        }
+
+        .community-desc {
+            font-size: 0.65rem;
+            opacity: 0.9;
+            line-height: 1.3;
+        }
+
+        .quiz-btn {
+            width: 100%;
+            padding: 3%;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2%;
+            margin-top: 3%;
+        }
+
+        .quiz-btn:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        .quiz-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            padding: 5%;
+            overflow-y: auto;
+        }
+
+        .quiz-modal.open {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quiz-content {
+            background: #fff;
+            border-radius: 15px;
+            padding: 5%;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        body.dark-mode .quiz-content {
+            background: #2a2a3e;
+            color: #e0e0e0;
+        }
+
+        .quiz-header {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 3%;
+            text-align: center;
+        }
+
+        body.dark-mode .quiz-header {
+            color: #e0e0e0;
+        }
+
+        .quiz-question {
+            margin-bottom: 4%;
+        }
+
+        .question-text {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 2%;
+        }
+
+        body.dark-mode .question-text {
+            color: #b0b0b0;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 2%;
+        }
+
+        .quiz-option {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            padding: 3%;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .quiz-option {
+            background: #1a1a2e;
+            border-color: #3a3a4e;
+            color: #b0b0b0;
+        }
+
+        .quiz-option:active,
+        .quiz-option.selected {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+
+        body.dark-mode .quiz-option:active,
+        body.dark-mode .quiz-option.selected {
+            background: #1e3a5f;
+            border-color: #3498db;
+        }
+
+        .quiz-actions {
+            display: flex;
+            gap: 3%;
+            margin-top: 4%;
+        }
+
+        .quiz-btn-secondary {
+            flex: 1;
+            padding: 3%;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-btn-close {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .quiz-btn-submit {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: #fff;
+        }
+
+        .quiz-btn-secondary:active {
+            transform: scale(0.98);
+        }
+
+        .quiz-result {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 4%;
+            border-radius: 8px;
+            margin-top: 3%;
+            font-size: 0.75rem;
+        }
+
+        .gap-analyzer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 3%;
+            margin-bottom: 2vh;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .gap-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 2%;
+            text-align: center;
+        }
+
+        .gap-content {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 3%;
+        }
+
+        .gap-item {
+            margin-bottom: 3%;
+            padding-bottom: 3%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .gap-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .gap-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 1%;
+        }
+
+        .gap-text {
+            font-size: 0.65rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .share-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 3%;
+            margin-bottom: 2vh;
+            text-align: center;
+        }
+
+        .share-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 3% 6%;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 2%;
+        }
+
+        .share-btn:active {
+            transform: scale(0.98);
+        }
+
+        .progress-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 5%;
+            margin-top: 3%;
+            color: #fff;
+        }
+
+        .card-title-main {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 3%;
+            text-align: center;
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3%;
+            margin-bottom: 3%;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 4%;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1%;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            opacity: 0.9;
+        }
+
+        .skill-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2%;
+            justify-content: center;
+        }
+
+        .skill-badge-mini {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 2% 3%;
+            border-radius: 15px;
+            font-size: 0.6rem;
+            font-weight: 600;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 3%;
+            margin-bottom: 2%;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-card:active {
+            transform: scale(0.98);
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .skill-card:active::before {
+            width: 8px;
+        }
+
+        .level-1::before { background: #e74c3c; }
+        .level-2::before { background: #e67e22; }
+        .level-3::before { background: #f39c12; }
+        .level-4::before { background: #f1c40f; }
+        .level-5::before { background: #2ecc71; }
+        .level-6::before { background: #3498db; }
+        .level-7::before { background: #9b59b6; }
+        .level-8::before { background: #1abc9c; }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 2%;
+            margin-bottom: 2%;
+        }
+
+        .level-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            padding: 1% 3%;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+            flex: 1;
+            line-height: 1.3;
+        }
+
+        .card-content {
+            color: #34495e;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            padding-left: 1%;
+        }
+
+        .difficulty-label {
+            display: inline-block;
+            font-size: 0.65rem;
+            padding: 1% 2%;
+            border-radius: 8px;
+            margin-top: 2%;
+            font-weight: 600;
+        }
+
+        .diff-expert { background: #ffebee; color: #c62828; }
+        .diff-advanced { background: #fff3e0; color: #e65100; }
+        .diff-intermediate { background: #e8f5e9; color: #2e7d32; }
+        .diff-beginner { background: #e3f2fd; color: #1565c0; }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5%;
+            margin-top: 2%;
+        }
+
+        .tech-tag {
+            background: #f8f9fa;
+            color: #495057;
+            padding: 1% 2.5%;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            border: 1px solid #dee2e6;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 3px;
+            background: #ecf0f1;
+            border-radius: 3px;
+            margin-top: 3%;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3vh 1%;
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .skill-card {
+            animation: slideIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .skill-card:nth-child(1) { animation-delay: 0.1s; }
+        .skill-card:nth-child(2) { animation-delay: 0.2s; }
+        .skill-card:nth-child(3) { animation-delay: 0.3s; }
+        .skill-card:nth-child(4) { animation-delay: 0.4s; }
+        .skill-card:nth-child(5) { animation-delay: 0.5s; }
+        .skill-card:nth-child(6) { animation-delay: 0.6s; }
+        .skill-card:nth-child(7) { animation-delay: 0.7s; }
+        .skill-card:nth-child(8) { animation-delay: 0.8s; }
+
+        .expanded .card-content {
+            max-height: 500px;
+            margin-top: 2%;
+        }
+
+        .expand-icon {
+            font-size: 0.7rem;
+            color: #7f8c8d;
+            margin-left: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .status-buttons {
+            display: flex;
+            gap: 1.5%;
+            margin-top: 3%;
+            flex-wrap: wrap;
+        }
+
+        .status-btn {
+            flex: 1;
+            min-width: 48%;
+            padding: 2.5% 1%;
+            border: 2px solid #e0e0e0;
+            background: #fff;
+            border-radius: 8px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            color: #7f8c8d;
+        }
+
+        .status-btn:active {
+            transform: scale(0.95);
+        }
+
+        .status-btn.active {
+            border-width: 2px;
+        }
+
+        .status-not-started.active {
+            background: #ecf0f1;
+            border-color: #95a5a6;
+            color: #7f8c8d;
+        }
+
+        .status-learning.active {
+            background: #fff9e6;
+            border-color: #f39c12;
+            color: #f39c12;
+        }
+
+        .status-proficient.active {
+            background: #e8f5fe;
+            border-color: #3498db;
+            color: #3498db;
+        }
+
+        .status-mastered.active {
+            background: #e8f8f5;
+            border-color: #2ecc71;
+            color: #2ecc71;
+        }
+
+        .card-status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: auto;
+            margin-right: 5px;
+        }
+
+        .indicator-not-started { background: #95a5a6; }
+        .indicator-learning { background: #f39c12; }
+        .indicator-proficient { background: #3498db; }
+        .indicator-mastered { background: #2ecc71; }
+
+        .career-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2%;
+            margin-top: 3%;
+            padding-top: 3%;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 2%;
+            font-size: 0.7rem;
+        }
+
+        .info-icon {
+            font-size: 0.85rem;
+            min-width: 20px;
+        }
+
+        .info-label {
+            font-weight: 700;
+            color: #7f8c8d;
+            min-width: 80px;
+        }
+
+        .info-value {
+            color: #2c3e50;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .salary-range {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: #fff;
+            padding: 1.5% 3%;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        .job-roles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5%;
+        }
+
+        .job-role-tag {
+            background: #e8f4f8;
+            color: #2980b9;
+            padding: 1% 2.5%;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            border: 1px solid #d6eaf8;
+        }
+
+        .experience-badge {
+            background: #fff3e0;
+            color: #e67e22;
+            padding: 1.5% 3%;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        .resources-section {
+            margin-top: 3%;
+            padding-top: 3%;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .resources-toggle {
+            width: 100%;
+            padding: 3%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2%;
+        }
+
+        .resources-toggle:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        .toggle-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .resources-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .resources-content.open {
+            max-height: 1000px;
+            margin-top: 3%;
+        }
+
+        .study-time {
+            background: #f0f3ff;
+            border-left: 3px solid #667eea;
+            padding: 3%;
+            margin-bottom: 3%;
+            border-radius: 6px;
+        }
+
+        .study-time-label {
+            font-size: 0.65rem;
+            color: #7f8c8d;
+            font-weight: 600;
+            margin-bottom: 1%;
+        }
+
+        .study-time-value {
+            font-size: 0.75rem;
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .resource-links {
+            margin-bottom: 3%;
+        }
+
+        .resource-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 2%;
+            display: flex;
+            align-items: center;
+            gap: 2%;
+        }
+
+        .resource-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2%;
+        }
+
+        .resource-link {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 2.5%;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            color: #2980b9;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 2%;
+            transition: all 0.2s ease;
+        }
+
+        .resource-link:active {
+            background: #f8f9fa;
+            border-color: #2980b9;
+        }
+
+        .project-ideas {
+            background: #fffbf0;
+            border-left: 3px solid #f39c12;
+            padding: 3%;
+            border-radius: 6px;
+        }
+
+        .project-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 2%;
+            display: flex;
+            align-items: center;
+            gap: 2%;
+        }
+
+        .project-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2%;
+        }
+
+        .project-item {
+            font-size: 0.65rem;
+            color: #34495e;
+            padding-left: 4%;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .project-item:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #f39c12;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🇵🇭 Full-Stack Engineer Roadmap 2026</h1>
+            <div class="subtitle">Comprehensive Skills Guide • Hardest to Easiest</div>
+            <div class="progress-summary">
+                <div class="progress-text">
+                    <span id="masteredCount">0</span>/8 Skills Mastered
+                </div>
+                <div class="progress-percentage" id="progressPercentage">0%</div>
+            </div>
+            <button class="reset-btn" onclick="resetProgress()">🔄 Reset Progress</button>
+        </header>
+
+        <div class="controls-section">
+            <div class="controls-row">
+                <span class="control-label">🎨 Theme:</span>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <span id="themeIcon">☀️</span>
+                    <span id="themeText">Light Mode</span>
+                </button>
+            </div>
+            
+            <div class="controls-row">
+                <span class="control-label">🔍 Filter:</span>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterSkills('all')">All Levels</button>
+                    <button class="filter-btn" onclick="filterSkills('expert')">🔥 Expert</button>
+                    <button class="filter-btn" onclick="filterSkills('advanced')">⚡ Advanced</button>
+                    <button class="filter-btn" onclick="filterSkills('intermediate')">💡 Intermediate</button>
+                    <button class="filter-btn" onclick="filterSkills('beginner')">✨ Foundation</button>
+                </div>
+            </div>
+            
+            <div class="controls-row">
+                <span class="control-label">👁️ View:</span>
+                <div class="view-toggle">
+                    <button class="view-btn active" onclick="toggleView('card')">📋 Card</button>
+                    <button class="view-btn" onclick="toggleView('list')">📝 List</button>
+                </div>
+            </div>
+
+            <div class="controls-row">
+                <span class="control-label">🔄 Sort:</span>
+                <div class="sort-buttons">
+                    <button class="sort-btn active" onclick="sortSkills('hardest')">Hardest First</button>
+                    <button class="sort-btn" onclick="sortSkills('easiest')">Easiest First</button>
+                    <button class="sort-btn" onclick="sortSkills('alphabetical')">A-Z</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="skill-card level-1" onclick="toggleCard(this)" data-skill="skill1">
+            <div class="card-header">
+                <div class="level-badge">LEVEL 1</div>
+                <div class="card-title">Lead Challenging Projects & Handle Full SDLC</div>
+                <span class="card-status-indicator indicator-not-started" id="indicator-skill1"></span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="difficulty-label diff-expert">🔥 Expert Level</div>
+            <div class="card-content">
+                Master the complete Software Development Lifecycle from requirements gathering to deployment and maintenance. Lead complex, high-stakes projects with multiple teams and stakeholders. Handle architecture decisions, risk management, and deliver production-grade systems on time.
+                <div class="tech-stack">
+                    <div class="tech-tag">Agile/Scrum</div>
+                    <div class="tech-tag">CI/CD</div>
+                    <div class="tech-tag">DevOps</div>
+                    <div class="tech-tag">Project Management</div>
+                    <div class="tech-tag">Risk Management</div>
+                </div>
+                <div class="career-info">
+                    <div class="info-row">
+                        <span class="info-icon">💰</span>
+                        <span class="info-label">PH Salary:</span>
+                        <span class="info-value salary-range">₱120k - 200k+/month</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">💼</span>
+                        <span class="info-label">Job Roles:</span>
+                        <div class="job-roles">
+                            <span class="job-role-tag">Engineering Manager</span>
+                            <span class="job-role-tag">Technical Director</span>
+                            <span class="job-role-tag">VP of Engineering</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">⏱️</span>
+                        <span class="info-label">Experience:</span>
+                        <span class="info-value experience-badge">8-12+ years</span>
+                    </div>
+                </div>
+                <div class="ph-companies">
+                    <div class="companies-title">🇵🇭 PH Companies Hiring:</div>
+                    <div class="company-tags">
+                        <span class="company-tag">GCash</span>
+                        <span class="company-tag">Grab Philippines</span>
+                        <span class="company-tag">Shopee</span>
+                        <span class="company-tag">Accenture</span>
+                        <span class="company-tag">Globe Telecom</span>
+                    </div>
+                </div>
+                <div class="status-buttons">
+                    <button class="status-btn status-not-started active" onclick="setStatus(event, 'skill1', 'not-started')">⚪ Not Started</button>
+                    <button class="status-btn status-learning" onclick="setStatus(event, 'skill1', 'learning')">🟡 Learning</button>
+                    <button class="status-btn status-proficient" onclick="setStatus(event, 'skill1', 'proficient')">🔵 Proficient</button>
+                    <button class="status-btn status-mastered" onclick="setStatus(event, 'skill1', 'mastered')">🟢 Mastered</button>
+                </div>
+                <div class="resources-section">
+                    <button class="resources-toggle" onclick="toggleResources(event, 'resources1')">
+                        📚 Learning Resources & Projects
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                    <div class="resources-content" id="resources1">
+                        <div class="study-time">
+                            <div class="study-time-label">⏳ Typical Mastery Time:</div>
+                            <div class="study-time-value">2-3 years of consistent leadership experience</div>
+                        </div>
+                        <div class="resource-links">
+                            <div class="resource-title">🎓 Recommended Learning:</div>
+                            <div class="resource-list">
+                                <a href="#" class="resource-link" onclick="return false;">📖 The Manager's Path by Camille Fournier</a>
+                                <a href="#" class="resource-link" onclick="return false;">📖 Accelerate: Building & Scaling High Performing Tech Orgs</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 Coursera: Software Product Management Specialization</a>
+                                <a href="#" class="resource-link" onclick="return false;">📄 Martin Fowler's Blog - Architecture & Leadership</a>
+                            </div>
+                        </div>
+                        <div class="project-ideas">
+                            <div class="project-title">💡 Practice Projects:</div>
+                            <ul class="project-list">
+                                <li class="project-item">Lead a complete e-commerce platform migration (monolith to microservices)</li>
+                                <li class="project-item">Manage full SDLC for a fintech mobile app with compliance requirements</li>
+                                <li class="project-item">Establish CI/CD pipeline and DevOps culture for 5+ development teams</li>
+                                <li class="project-item">Architect and deliver a real-time analytics dashboard for enterprise clients</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button class="quiz-btn" onclick="openQuiz(event, 'skill2')">
+                    📝 Take Self-Assessment Quiz
+                </button>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 90%"></div></div>
+        </div>
+
+        <div class="skill-card level-3" onclick="toggleCard(this)" data-skill="skill3">
+            <div class="card-header">
+                <div class="level-badge">LEVEL 3</div>
+                <div class="card-title">Architect Full-Stack Projects from Scratch</div>
+                <span class="card-status-indicator indicator-not-started" id="indicator-skill3"></span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="difficulty-label diff-advanced">⚡ Advanced Level</div>
+            <div class="card-content">
+                Design complete system architecture including database schema, API design, front-end structure, and infrastructure. Plan for scalability, security, and performance from the ground up. Create technical specifications and documentation.
+                <div class="tech-stack">
+                    <div class="tech-tag">System Architecture</div>
+                    <div class="tech-tag">Database Design</div>
+                    <div class="tech-tag">API Design</div>
+                    <div class="tech-tag">Security</div>
+                    <div class="tech-tag">Scalability</div>
+                </div>
+                <div class="career-info">
+                    <div class="info-row">
+                        <span class="info-icon">💰</span>
+                        <span class="info-label">PH Salary:</span>
+                        <span class="info-value salary-range">₱80k - 150k/month</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">💼</span>
+                        <span class="info-label">Job Roles:</span>
+                        <div class="job-roles">
+                            <span class="job-role-tag">Senior Full-Stack Engineer</span>
+                            <span class="job-role-tag">System Architect</span>
+                            <span class="job-role-tag">Technical Lead</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">⏱️</span>
+                        <span class="info-label">Experience:</span>
+                        <span class="info-value experience-badge">5-8 years</span>
+                    </div>
+                </div>
+                <div class="ph-companies">
+                    <div class="companies-title">🇵🇭 PH Companies Hiring:</div>
+                    <div class="company-tags">
+                        <span class="company-tag">Gcash</span>
+                        <span class="company-tag">UnionBank</span>
+                        <span class="company-tag">BDO Digital</span>
+                        <span class="company-tag">Maya Philippines</span>
+                        <span class="company-tag">Coins.ph</span>
+                    </div>
+                </div>
+                <div class="status-buttons">
+                    <button class="status-btn status-not-started active" onclick="setStatus(event, 'skill3', 'not-started')">⚪ Not Started</button>
+                    <button class="status-btn status-learning" onclick="setStatus(event, 'skill3', 'learning')">🟡 Learning</button>
+                    <button class="status-btn status-proficient" onclick="setStatus(event, 'skill3', 'proficient')">🔵 Proficient</button>
+                    <button class="status-btn status-mastered" onclick="setStatus(event, 'skill3', 'mastered')">🟢 Mastered</button>
+                </div>
+                <div class="resources-section">
+                    <button class="resources-toggle" onclick="toggleResources(event, 'resources3')">
+                        📚 Learning Resources & Projects
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                    <div class="resources-content" id="resources3">
+                        <div class="study-time">
+                            <div class="study-time-label">⏳ Typical Mastery Time:</div>
+                            <div class="study-time-value">12-18 months with multiple project completions</div>
+                        </div>
+                        <div class="resource-links">
+                            <div class="resource-title">🎓 Recommended Learning:</div>
+                            <div class="resource-list">
+                                <a href="#" class="resource-link" onclick="return false;">📖 Clean Architecture by Robert C. Martin</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 FreeCodeCamp: Microservices Architecture Full Course</a>
+                                <a href="#" class="resource-link" onclick="return false;">📄 PostgreSQL Tutorial - Advanced Database Design</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 Hussein Nasser's YouTube - Backend Engineering</a>
+                            </div>
+                        </div>
+                        <div class="project-ideas">
+                            <div class="project-title">💡 Practice Projects:</div>
+                            <ul class="project-list">
+                                <li class="project-item">Build a multi-tenant SaaS application from scratch with role-based access</li>
+                                <li class="project-item">Design and implement event-driven microservices architecture</li>
+                                <li class="project-item">Create scalable RESTful API with rate limiting and caching strategies</li>
+                                <li class="project-item">Architect real-time chat application with WebSocket and Redis pub/sub</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button class="quiz-btn" onclick="openQuiz(event, 'skill3')">
+                    📝 Take Self-Assessment Quiz
+                </button>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 80%"></div></div>
+        </div>
+
+        <div class="skill-card level-4" onclick="toggleCard(this)" data-skill="skill4">
+            <div class="card-header">
+                <div class="level-badge">LEVEL 4</div>
+                <div class="card-title">Lead and Mentor Other Technical Staff</div>
+                <span class="card-status-indicator indicator-not-started" id="indicator-skill4"></span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="difficulty-label diff-advanced">⚡ Advanced Level</div>
+            <div class="card-content">
+                Guide junior and mid-level developers through code reviews, pair programming, and technical discussions. Foster a culture of learning and continuous improvement. Conduct technical interviews and onboard new team members effectively.
+                <div class="tech-stack">
+                    <div class="tech-tag">Code Reviews</div>
+                    <div class="tech-tag">Mentorship</div>
+                    <div class="tech-tag">Team Leadership</div>
+                    <div class="tech-tag">Knowledge Sharing</div>
+                    <div class="tech-tag">Technical Communication</div>
+                </div>
+                <div class="career-info">
+                    <div class="info-row">
+                        <span class="info-icon">💰</span>
+                        <span class="info-label">PH Salary:</span>
+                        <span class="info-value salary-range">₱70k - 130k/month</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">💼</span>
+                        <span class="info-label">Job Roles:</span>
+                        <div class="job-roles">
+                            <span class="job-role-tag">Senior Developer</span>
+                            <span class="job-role-tag">Team Lead</span>
+                            <span class="job-role-tag">Technical Mentor</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">⏱️</span>
+                        <span class="info-label">Experience:</span>
+                        <span class="info-value experience-badge">5-7 years</span>
+                    </div>
+                </div>
+                <div class="ph-companies">
+                    <div class="companies-title">🇵🇭 PH Companies Hiring:</div>
+                    <div class="company-tags">
+                        <span class="company-tag">Lazada Philippines</span>
+                        <span class="company-tag">Foodpanda</span>
+                        <span class="company-tag">Zalora</span>
+                        <span class="company-tag">Smart Communications</span>
+                        <span class="company-tag">Ayala Corporation</span>
+                    </div>
+                </div>
+                <div class="status-buttons">
+                    <button class="status-btn status-not-started active" onclick="setStatus(event, 'skill4', 'not-started')">⚪ Not Started</button>
+                    <button class="status-btn status-learning" onclick="setStatus(event, 'skill4', 'learning')">🟡 Learning</button>
+                    <button class="status-btn status-proficient" onclick="setStatus(event, 'skill4', 'proficient')">🔵 Proficient</button>
+                    <button class="status-btn status-mastered" onclick="setStatus(event, 'skill4', 'mastered')">🟢 Mastered</button>
+                </div>
+                <div class="resources-section">
+                    <button class="resources-toggle" onclick="toggleResources(event, 'resources4')">
+                        📚 Learning Resources & Projects
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                    <div class="resources-content" id="resources4">
+                        <div class="study-time">
+                            <div class="study-time-label">⏳ Typical Mastery Time:</div>
+                            <div class="study-time-value">6-12 months of active mentoring and team leadership</div>
+                        </div>
+                        <div class="resource-links">
+                            <div class="resource-title">🎓 Recommended Learning:</div>
+                            <div class="resource-list">
+                                <a href="#" class="resource-link" onclick="return false;">📖 The Effective Engineer by Edmond Lau</a>
+                                <a href="#" class="resource-link" onclick="return false;">📖 Staff Engineer: Leadership Beyond the Management Track</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 PluralSight: Technical Leadership Skills Path</a>
+                                <a href="#" class="resource-link" onclick="return false;">📄 Google's Code Review Best Practices</a>
+                            </div>
+                        </div>
+                        <div class="project-ideas">
+                            <div class="project-title">💡 Practice Projects:</div>
+                            <ul class="project-list">
+                                <li class="project-item">Mentor 2-3 junior developers through their first major feature</li>
+                                <li class="project-item">Establish code review standards and conduct weekly review sessions</li>
+                                <li class="project-item">Create internal tech talks series on advanced topics</li>
+                                <li class="project-item">Lead refactoring initiative and document best practices for team</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button class="quiz-btn" onclick="openQuiz(event, 'skill4')">
+                    📝 Take Self-Assessment Quiz
+                </button>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 70%"></div></div>
+        </div>
+
+        <div class="skill-card level-5" onclick="toggleCard(this)" data-skill="skill5">
+            <div class="card-header">
+                <div class="level-badge">LEVEL 5</div>
+                <div class="card-title">Design Software with Production-Ready Standards</div>
+                <span class="card-status-indicator indicator-not-started" id="indicator-skill5"></span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="difficulty-label diff-advanced">⚡ Advanced Level</div>
+            <div class="card-content">
+                Implement best practices for code quality, testing, monitoring, and deployment. Build resilient systems with proper error handling, logging, and recovery mechanisms. Ensure code is maintainable, well-documented, and follows industry standards.
+                <div class="tech-stack">
+                    <div class="tech-tag">Testing (Unit/Integration)</div>
+                    <div class="tech-tag">Monitoring & Logging</div>
+                    <div class="tech-tag">Error Handling</div>
+                    <div class="tech-tag">Documentation</div>
+                    <div class="tech-tag">Code Quality</div>
+                </div>
+                <div class="career-info">
+                    <div class="info-row">
+                        <span class="info-icon">💰</span>
+                        <span class="info-label">PH Salary:</span>
+                        <span class="info-value salary-range">₱60k - 110k/month</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">💼</span>
+                        <span class="info-label">Job Roles:</span>
+                        <div class="job-roles">
+                            <span class="job-role-tag">Senior Developer</span>
+                            <span class="job-role-tag">Full-Stack Engineer</span>
+                            <span class="job-role-tag">Software Engineer III</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">⏱️</span>
+                        <span class="info-label">Experience:</span>
+                        <span class="info-value experience-badge">4-6 years</span>
+                    </div>
+                </div>
+                <div class="ph-companies">
+                    <div class="companies-title">🇵🇬 PH Companies Hiring:</div>
+                    <div class="company-tags">
+                        <span class="company-tag">ConnectOS</span>
+                        <span class="company-tag">Sprout Solutions</span>
+                        <span class="company-tag">Taxumo</span>
+                        <span class="company-tag">Gcash</span>
+                        <span class="company-tag">IBM Philippines</span>
+                    </div>
+                </div>
+                <div class="status-buttons">
+                    <button class="status-btn status-not-started active" onclick="setStatus(event, 'skill5', 'not-started')">⚪ Not Started</button>
+                    <button class="status-btn status-learning" onclick="setStatus(event, 'skill5', 'learning')">🟡 Learning</button>
+                    <button class="status-btn status-proficient" onclick="setStatus(event, 'skill5', 'proficient')">🔵 Proficient</button>
+                    <button class="status-btn status-mastered" onclick="setStatus(event, 'skill5', 'mastered')">🟢 Mastered</button>
+                </div>
+                <div class="resources-section">
+                    <button class="resources-toggle" onclick="toggleResources(event, 'resources5')">
+                        📚 Learning Resources & Projects
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                    <div class="resources-content" id="resources5">
+                        <div class="study-time">
+                            <div class="study-time-label">⏳ Typical Mastery Time:</div>
+                            <div class="study-time-value">8-12 months of implementing production best practices</div>
+                        </div>
+                        <div class="resource-links">
+                            <div class="resource-title">🎓 Recommended Learning:</div>
+                            <div class="resource-list">
+                                <a href="#" class="resource-link" onclick="return false;">📖 The Phoenix Project - DevOps Novel</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 Udemy: Docker & Kubernetes Complete Guide</a>
+                                <a href="#" class="resource-link" onclick="return false;">📄 Jest Documentation - Testing Best Practices</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 Fireship: Production-Ready Code Tutorial Series</a>
+                            </div>
+                        </div>
+                        <div class="project-ideas">
+                            <div class="project-title">💡 Practice Projects:</div>
+                            <ul class="project-list">
+                                <li class="project-item">Implement comprehensive test suite with 80%+ code coverage</li>
+                                <li class="project-item">Set up monitoring with Prometheus/Grafana and alerting system</li>
+                                <li class="project-item">Build CI/CD pipeline with automated testing and deployment</li>
+                                <li class="project-item">Add structured logging, error tracking (Sentry), and performance monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button class="quiz-btn" onclick="openQuiz(event, 'skill5')">
+                    📝 Take Self-Assessment Quiz
+                </button>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 60%"></div></div>
+        </div>
+
+        <div class="skill-card level-6" onclick="toggleCard(this)" data-skill="skill6">
+            <div class="card-header">
+                <div class="level-badge">LEVEL 6</div>
+                <div class="card-title">Understand Business Needs & Translate to Technical Requirements</div>
+                <span class="card-status-indicator indicator-not-started" id="indicator-skill6"></span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="difficulty-label diff-intermediate">💡 Intermediate Level</div>
+            <div class="card-content">
+                Bridge the gap between business stakeholders and technical teams. Analyze business requirements and convert them into technical specifications. Estimate effort, identify constraints, and propose technical solutions aligned with business goals.
+                <div class="tech-stack">
+                    <div class="tech-tag">Requirements Analysis</div>
+                    <div class="tech-tag">Technical Writing</div>
+                    <div class="tech-tag">Estimation</div>
+                    <div class="tech-tag">Stakeholder Communication</div>
+                    <div class="tech-tag">Business Logic</div>
+                </div>
+                <div class="career-info">
+                    <div class="info-row">
+                        <span class="info-icon">💰</span>
+                        <span class="info-label">PH Salary:</span>
+                        <span class="info-value salary-range">₱50k - 90k/month</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">💼</span>
+                        <span class="info-label">Job Roles:</span>
+                        <div class="job-roles">
+                            <span class="job-role-tag">Mid-Level Developer</span>
+                            <span class="job-role-tag">Software Engineer II</span>
+                            <span class="job-role-tag">Full-Stack Developer</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">⏱️</span>
+                        <span class="info-label">Experience:</span>
+                        <span class="info-value experience-badge">3-5 years</span>
+                    </div>
+                </div>
+                <div class="ph-companies">
+                    <div class="companies-title">🇵🇭 PH Companies Hiring:</div>
+                    <div class="company-tags">
+                        <span class="company-tag">Full Suite</span>
+                        <span class="company-tag">Channelfix</span>
+                        <span class="company-tag">Ingcoph</span>
+                        <span class="company-tag">Booky</span>
+                        <span class="company-tag">AngKaSaPa</span>
+                    </div>
+                </div>
+                <div class="status-buttons">
+                    <button class="status-btn status-not-started active" onclick="setStatus(event, 'skill6', 'not-started')">⚪ Not Started</button>
+                    <button class="status-btn status-learning" onclick="setStatus(event, 'skill6', 'learning')">🟡 Learning</button>
+                    <button class="status-btn status-proficient" onclick="setStatus(event, 'skill6', 'proficient')">🔵 Proficient</button>
+                    <button class="status-btn status-mastered" onclick="setStatus(event, 'skill6', 'mastered')">🟢 Mastered</button>
+                </div>
+                <div class="resources-section">
+                    <button class="resources-toggle" onclick="toggleResources(event, 'resources6')">
+                        📚 Learning Resources & Projects
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                    <div class="resources-content" id="resources6">
+                        <div class="study-time">
+                            <div class="study-time-label">⏳ Typical Mastery Time:</div>
+                            <div class="study-time-value">6-9 months of cross-functional collaboration</div>
+                        </div>
+                        <div class="resource-links">
+                            <div class="resource-title">🎓 Recommended Learning:</div>
+                            <div class="resource-list">
+                                <a href="#" class="resource-link" onclick="return false;">📖 User Story Mapping by Jeff Patton</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 Coursera: Business Analysis Fundamentals</a>
+                                <a href="#" class="resource-link" onclick="return false;">📄 Atlassian: Writing Effective Requirements</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 LinkedIn Learning: Technical Communication</a>
+                            </div>
+                        </div>
+                        <div class="project-ideas">
+                            <div class="project-title">💡 Practice Projects:</div>
+                            <ul class="project-list">
+                                <li class="project-item">Create technical specs from business requirements for new feature</li>
+                                <li class="project-item">Lead requirements gathering workshops with stakeholders</li>
+                                <li class="project-item">Document API specifications and integration guides</li>
+                                <li class="project-item">Estimate and break down complex epics into manageable user stories</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button class="quiz-btn" onclick="openQuiz(event, 'skill6')">
+                    📝 Take Self-Assessment Quiz
+                </button>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div>
+        </div>
+
+        <div class="skill-card level-7" onclick="toggleCard(this)" data-skill="skill7">
+            <div class="card-header">
+                <div class="level-badge">LEVEL 7</div>
+                <div class="card-title">Exhibit Good Front-End/Back-End Skills in Building/Maintaining Apps</div>
+                <span class="card-status-indicator indicator-not-started" id="indicator-skill7"></span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="difficulty-label diff-intermediate">💡 Intermediate Level</div>
+            <div class="card-content">
+                Demonstrate solid competency in both front-end and back-end development. Build complete features end-to-end, maintain existing codebases, and troubleshoot issues across the full stack. Work independently on medium-complexity tasks.
+                <div class="tech-stack">
+                    <div class="tech-tag">HTML/CSS/JavaScript</div>
+                    <div class="tech-tag">Node.js</div>
+                    <div class="tech-tag">Databases (SQL/NoSQL)</div>
+                    <div class="tech-tag">RESTful APIs</div>
+                    <div class="tech-tag">Version Control (Git)</div>
+                </div>
+                <div class="career-info">
+                    <div class="info-row">
+                        <span class="info-icon">💰</span>
+                        <span class="info-label">PH Salary:</span>
+                        <span class="info-value salary-range">₱40k - 70k/month</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">💼</span>
+                        <span class="info-label">Job Roles:</span>
+                        <div class="job-roles">
+                            <span class="job-role-tag">Full-Stack Developer</span>
+                            <span class="job-role-tag">Software Engineer</span>
+                            <span class="job-role-tag">Web Developer</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">⏱️</span>
+                        <span class="info-label">Experience:</span>
+                        <span class="info-value experience-badge">2-4 years</span>
+                    </div>
+                </div>
+                <div class="ph-companies">
+                    <div class="companies-title">🇵🇭 PH Companies Hiring:</div>
+                    <div class="company-tags">
+                        <span class="company-tag">TalentView</span>
+                        <span class="company-tag">FullSpeed Technologies</span>
+                        <span class="company-tag">OutSystems</span>
+                        <span class="company-tag">Exist Software</span>
+                        <span class="company-tag">Orange & Bronze</span>
+                    </div>
+                </div>
+                <div class="status-buttons">
+                    <button class="status-btn status-not-started active" onclick="setStatus(event, 'skill7', 'not-started')">⚪ Not Started</button>
+                    <button class="status-btn status-learning" onclick="setStatus(event, 'skill7', 'learning')">🟡 Learning</button>
+                    <button class="status-btn status-proficient" onclick="setStatus(event, 'skill7', 'proficient')">🔵 Proficient</button>
+                    <button class="status-btn status-mastered" onclick="setStatus(event, 'skill7', 'mastered')">🟢 Mastered</button>
+                </div>
+                <div class="resources-section">
+                    <button class="resources-toggle" onclick="toggleResources(event, 'resources7')">
+                        📚 Learning Resources & Projects
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                    <div class="resources-content" id="resources7">
+                        <div class="study-time">
+                            <div class="study-time-label">⏳ Typical Mastery Time:</div>
+                            <div class="study-time-value">6-10 months of consistent full-stack development</div>
+                        </div>
+                        <div class="resource-links">
+                            <div class="resource-title">🎓 Recommended Learning:</div>
+                            <div class="resource-list">
+                                <a href="#" class="resource-link" onclick="return false;">🎥 The Odin Project - Full-Stack JavaScript Path (FREE)</a>
+                                <a href="#" class="resource-link" onclick="return false;">📄 MDN Web Docs - JavaScript Guide</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 Traversy Media: MERN Stack Front To Back</a>
+                                <a href="#" class="resource-link" onclick="return false;">📖 Eloquent JavaScript (FREE online)</a>
+                            </div>
+                        </div>
+                        <div class="project-ideas">
+                            <div class="project-title">💡 Practice Projects:</div>
+                            <ul class="project-list">
+                                <li class="project-item">Build a full-featured blog with authentication and comments</li>
+                                <li class="project-item">Create task management app with drag-and-drop functionality</li>
+                                <li class="project-item">Develop weather app using external APIs and geolocation</li>
+                                <li class="project-item">Build e-commerce site with cart, checkout, and payment integration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button class="quiz-btn" onclick="openQuiz(event, 'skill7')">
+                    📝 Take Self-Assessment Quiz
+                </button>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
+        </div>
+
+        <div class="skill-card level-8" onclick="toggleCard(this)" data-skill="skill8">
+            <div class="card-header">
+                <div class="level-badge">LEVEL 8</div>
+                <div class="card-title">Proficiency in ReactJS and Express</div>
+                <span class="card-status-indicator indicator-not-started" id="indicator-skill8"></span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="difficulty-label diff-beginner">✨ Foundation Level</div>
+            <div class="card-content">
+                Build functional web applications using ReactJS for the front-end and Express.js for the back-end. Understand component lifecycle, state management, routing, and middleware. Create CRUD applications with proper data flow and API integration.
+                <div class="tech-stack">
+                    <div class="tech-tag">React Hooks</div>
+                    <div class="tech-tag">Express Middleware</div>
+                    <div class="tech-tag">REST APIs</div>
+                    <div class="tech-tag">State Management</div>
+                    <div class="tech-tag">Component Design</div>
+                </div>
+                <div class="career-info">
+                    <div class="info-row">
+                        <span class="info-icon">💰</span>
+                        <span class="info-label">PH Salary:</span>
+                        <span class="info-value salary-range">₱25k - 50k/month</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">💼</span>
+                        <span class="info-label">Job Roles:</span>
+                        <div class="job-roles">
+                            <span class="job-role-tag">Junior Developer</span>
+                            <span class="job-role-tag">Associate Engineer</span>
+                            <span class="job-role-tag">React Developer</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">⏱️</span>
+                        <span class="info-label">Experience:</span>
+                        <span class="info-value experience-badge">0-2 years</span>
+                    </div>
+                </div>
+                <div class="ph-companies">
+                    <div class="companies-title">🇵🇭 PH Companies Hiring:</div>
+                    <div class="company-tags">
+                        <span class="company-tag">Trend Micro</span>
+                        <span class="company-tag">NinjaCat</span>
+                        <span class="company-tag">Pointwest</span>
+                        <span class="company-tag">Datacom</span>
+                        <span class="company-tag">7-Eleven PH</span>
+                    </div>
+                </div>
+                <div class="status-buttons">
+                    <button class="status-btn status-not-started active" onclick="setStatus(event, 'skill8', 'not-started')">⚪ Not Started</button>
+                    <button class="status-btn status-learning" onclick="setStatus(event, 'skill8', 'learning')">🟡 Learning</button>
+                    <button class="status-btn status-proficient" onclick="setStatus(event, 'skill8', 'proficient')">🔵 Proficient</button>
+                    <button class="status-btn status-mastered" onclick="setStatus(event, 'skill8', 'mastered')">🟢 Mastered</button>
+                </div>
+                <div class="resources-section">
+                    <button class="resources-toggle" onclick="toggleResources(event, 'resources8')">
+                        📚 Learning Resources & Projects
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                    <div class="resources-content" id="resources8">
+                        <div class="study-time">
+                            <div class="study-time-label">⏳ Typical Mastery Time:</div>
+                            <div class="study-time-value">3-6 months of dedicated learning and practice</div>
+                        </div>
+                        <div class="resource-links">
+                            <div class="resource-title">🎓 Recommended Learning:</div>
+                            <div class="resource-list">
+                                <a href="#" class="resource-link" onclick="return false;">🎥 FreeCodeCamp: React Course for Beginners (FREE)</a>
+                                <a href="#" class="resource-link" onclick="return false;">📄 React Official Documentation - Learn React</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 Net Ninja: Node.js & Express Tutorial (FREE)</a>
+                                <a href="#" class="resource-link" onclick="return false;">📖 You Don't Know JS (FREE book series)</a>
+                            </div>
+                        </div>
+                        <div class="project-ideas">
+                            <div class="project-title">💡 Practice Projects:</div>
+                            <ul class="project-list">
+                                <li class="project-item">Build a React todo app with local state and CRUD operations</li>
+                                <li class="project-item">Create an Express REST API with MongoDB for a contact manager</li>
+                                <li class="project-item">Develop a recipe finder app consuming external food APIs</li>
+                                <li class="project-item">Build a simple social media feed with posts, likes, and comments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <button class="quiz-btn" onclick="openQuiz(event, 'skill8')">
+                    📝 Take Self-Assessment Quiz
+                </button>
+                <button class="quiz-btn" onclick="openQuiz(event, 'skill1')">
+                    📝 Take Self-Assessment Quiz
+                </button>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+        </div>
+
+        <div class="skill-card level-2" onclick="toggleCard(this)" data-skill="skill2">
+            <div class="card-header">
+                <div class="level-badge">LEVEL 2</div>
+                <div class="card-title">Make Key Decisions on Stack & Software Design</div>
+                <span class="card-status-indicator indicator-not-started" id="indicator-skill2"></span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="difficulty-label diff-expert">🔥 Expert Level</div>
+            <div class="card-content">
+                Evaluate and select appropriate technologies, frameworks, and architectural patterns. Make critical technical decisions that impact scalability, performance, and maintainability. Balance trade-offs between different solutions and justify choices to stakeholders.
+                <div class="tech-stack">
+                    <div class="tech-tag">Architecture Patterns</div>
+                    <div class="tech-tag">Tech Evaluation</div>
+                    <div class="tech-tag">Design Patterns</div>
+                    <div class="tech-tag">System Design</div>
+                    <div class="tech-tag">Trade-off Analysis</div>
+                </div>
+                <div class="career-info">
+                    <div class="info-row">
+                        <span class="info-icon">💰</span>
+                        <span class="info-label">PH Salary:</span>
+                        <span class="info-value salary-range">₱100k - 180k/month</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">💼</span>
+                        <span class="info-label">Job Roles:</span>
+                        <div class="job-roles">
+                            <span class="job-role-tag">Principal Engineer</span>
+                            <span class="job-role-tag">Solutions Architect</span>
+                            <span class="job-role-tag">Tech Lead</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">⏱️</span>
+                        <span class="info-label">Experience:</span>
+                        <span class="info-value experience-badge">7-10 years</span>
+                    </div>
+                </div>
+                <div class="ph-companies">
+                    <div class="companies-title">🇵🇭 PH Companies Hiring:</div>
+                    <div class="company-tags">
+                        <span class="company-tag">Thinking Machines</span>
+                        <span class="company-tag">Kalibrr</span>
+                        <span class="company-tag">PayMongo</span>
+                        <span class="company-tag">Voyager Innovations</span>
+                        <span class="company-tag">PLDT</span>
+                    </div>
+                </div>
+                <div class="status-buttons">
+                    <button class="status-btn status-not-started active" onclick="setStatus(event, 'skill2', 'not-started')">⚪ Not Started</button>
+                    <button class="status-btn status-learning" onclick="setStatus(event, 'skill2', 'learning')">🟡 Learning</button>
+                    <button class="status-btn status-proficient" onclick="setStatus(event, 'skill2', 'proficient')">🔵 Proficient</button>
+                    <button class="status-btn status-mastered" onclick="setStatus(event, 'skill2', 'mastered')">🟢 Mastered</button>
+                </div>
+                <div class="resources-section">
+                    <button class="resources-toggle" onclick="toggleResources(event, 'resources2')">
+                        📚 Learning Resources & Projects
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                    <div class="resources-content" id="resources2">
+                        <div class="study-time">
+                            <div class="study-time-label">⏳ Typical Mastery Time:</div>
+                            <div class="study-time-value">1-2 years of hands-on architecture experience</div>
+                        </div>
+                        <div class="resource-links">
+                            <div class="resource-title">🎓 Recommended Learning:</div>
+                            <div class="resource-list">
+                                <a href="#" class="resource-link" onclick="return false;">📖 Designing Data-Intensive Applications by Martin Kleppmann</a>
+                                <a href="#" class="resource-link" onclick="return false;">📖 System Design Interview by Alex Xu</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 YouTube: Gaurav Sen - System Design Series</a>
+                                <a href="#" class="resource-link" onclick="return false;">📄 AWS Architecture Center - Best Practices</a>
+                            </div>
+                        </div>
+                        <div class="project-ideas">
+                            <div class="project-title">💡 Practice Projects:</div>
+                            <ul class="project-list">
+                                <li class="project-item">Evaluate and document tech stack for a new SaaS product</li>
+                                <li class="project-item">Create architecture decision records (ADRs) for major technical choices</li>
+                                <li class="project-item">Design database schema and API architecture for social media platform</li>
+                                <li class="project-item">Compare serverless vs container-based architecture with cost analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 90%"></div></div>
+        </div>
+
+        <div class="skill-card level-3" onclick="toggleCard(this)" data-skill="skill3">
+            <div class="card-header">
+                <div class="level-badge">LEVEL 3</div>
+                <div class="card-title">Architect Full-Stack Projects from Scratch</div>
+                <span class="card-status-indicator indicator-not-started" id="indicator-skill3"></span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="difficulty-label diff-advanced">⚡ Advanced Level</div>
+            <div class="card-content">
+                Design complete system architecture including database schema, API design, front-end structure, and infrastructure. Plan for scalability, security, and performance from the ground up. Create technical specifications and documentation.
+                <div class="tech-stack">
+                    <div class="tech-tag">System Architecture</div>
+                    <div class="tech-tag">Database Design</div>
+                    <div class="tech-tag">API Design</div>
+                    <div class="tech-tag">Security</div>
+                    <div class="tech-tag">Scalability</div>
+                </div>
+                <div class="career-info">
+                    <div class="info-row">
+                        <span class="info-icon">💰</span>
+                        <span class="info-label">PH Salary:</span>
+                        <span class="info-value salary-range">₱80k - 150k/month</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">💼</span>
+                        <span class="info-label">Job Roles:</span>
+                        <div class="job-roles">
+                            <span class="job-role-tag">Senior Full-Stack Engineer</span>
+                            <span class="job-role-tag">System Architect</span>
+                            <span class="job-role-tag">Technical Lead</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">⏱️</span>
+                        <span class="info-label">Experience:</span>
+                        <span class="info-value experience-badge">5-8 years</span>
+                    </div>
+                </div>
+                <div class="ph-companies">
+                    <div class="companies-title">🇵🇭 PH Companies Hiring:</div>
+                    <div class="company-tags">
+                        <span class="company-tag">Gcash</span>
+                        <span class="company-tag">UnionBank</span>
+                        <span class="company-tag">BDO Digital</span>
+                        <span class="company-tag">Maya Philippines</span>
+                        <span class="company-tag">Coins.ph</span>
+                    </div>
+                </div>
+                <div class="status-buttons">
+                    <button class="status-btn status-not-started active" onclick="setStatus(event, 'skill3', 'not-started')">⚪ Not Started</button>
+                    <button class="status-btn status-learning" onclick="setStatus(event, 'skill3', 'learning')">🟡 Learning</button>
+                    <button class="status-btn status-proficient" onclick="setStatus(event, 'skill3', 'proficient')">🔵 Proficient</button>
+                    <button class="status-btn status-mastered" onclick="setStatus(event, 'skill3', 'mastered')">🟢 Mastered</button>
+                </div>
+                <div class="resources-section">
+                    <button class="resources-toggle" onclick="toggleResources(event, 'resources3')">
+                        📚 Learning Resources & Projects
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                    <div class="resources-content" id="resources3">
+                        <div class="study-time">
+                            <div class="study-time-label">⏳ Typical Mastery Time:</div>
+                            <div class="study-time-value">12-18 months with multiple project completions</div>
+                        </div>
+                        <div class="resource-links">
+                            <div class="resource-title">🎓 Recommended Learning:</div>
+                            <div class="resource-list">
+                                <a href="#" class="resource-link" onclick="return false;">📖 Clean Architecture by Robert C. Martin</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 FreeCodeCamp: Microservices Architecture Full Course</a>
+                                <a href="#" class="resource-link" onclick="return false;">📄 PostgreSQL Tutorial - Advanced Database Design</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 Hussein Nasser's YouTube - Backend Engineering</a>
+                            </div>
+                        </div>
+                        <div class="project-ideas">
+                            <div class="project-title">💡 Practice Projects:</div>
+                            <ul class="project-list">
+                                <li class="project-item">Build a multi-tenant SaaS application from scratch with role-based access</li>
+                                <li class="project-item">Design and implement event-driven microservices architecture</li>
+                                <li class="project-item">Create scalable RESTful API with rate limiting and caching strategies</li>
+                                <li class="project-item">Architect real-time chat application with WebSocket and Redis pub/sub</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 80%"></div></div>
+        </div>
+
+        <div class="skill-card level-4" onclick="toggleCard(this)" data-skill="skill4">
+            <div class="card-header">
+                <div class="level-badge">LEVEL 4</div>
+                <div class="card-title">Lead and Mentor Other Technical Staff</div>
+                <span class="card-status-indicator indicator-not-started" id="indicator-skill4"></span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="difficulty-label diff-advanced">⚡ Advanced Level</div>
+            <div class="card-content">
+                Guide junior and mid-level developers through code reviews, pair programming, and technical discussions. Foster a culture of learning and continuous improvement. Conduct technical interviews and onboard new team members effectively.
+                <div class="tech-stack">
+                    <div class="tech-tag">Code Reviews</div>
+                    <div class="tech-tag">Mentorship</div>
+                    <div class="tech-tag">Team Leadership</div>
+                    <div class="tech-tag">Knowledge Sharing</div>
+                    <div class="tech-tag">Technical Communication</div>
+                </div>
+                <div class="career-info">
+                    <div class="info-row">
+                        <span class="info-icon">💰</span>
+                        <span class="info-label">PH Salary:</span>
+                        <span class="info-value salary-range">₱70k - 130k/month</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">💼</span>
+                        <span class="info-label">Job Roles:</span>
+                        <div class="job-roles">
+                            <span class="job-role-tag">Senior Developer</span>
+                            <span class="job-role-tag">Team Lead</span>
+                            <span class="job-role-tag">Technical Mentor</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">⏱️</span>
+                        <span class="info-label">Experience:</span>
+                        <span class="info-value experience-badge">5-7 years</span>
+                    </div>
+                </div>
+                <div class="ph-companies">
+                    <div class="companies-title">🇵🇭 PH Companies Hiring:</div>
+                    <div class="company-tags">
+                        <span class="company-tag">Lazada Philippines</span>
+                        <span class="company-tag">Foodpanda</span>
+                        <span class="company-tag">Zalora</span>
+                        <span class="company-tag">Smart Communications</span>
+                        <span class="company-tag">Ayala Corporation</span>
+                    </div>
+                </div>
+                <div class="status-buttons">
+                    <button class="status-btn status-not-started active" onclick="setStatus(event, 'skill4', 'not-started')">⚪ Not Started</button>
+                    <button class="status-btn status-learning" onclick="setStatus(event, 'skill4', 'learning')">🟡 Learning</button>
+                    <button class="status-btn status-proficient" onclick="setStatus(event, 'skill4', 'proficient')">🔵 Proficient</button>
+                    <button class="status-btn status-mastered" onclick="setStatus(event, 'skill4', 'mastered')">🟢 Mastered</button>
+                </div>
+                <div class="resources-section">
+                    <button class="resources-toggle" onclick="toggleResources(event, 'resources4')">
+                        📚 Learning Resources & Projects
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                    <div class="resources-content" id="resources4">
+                        <div class="study-time">
+                            <div class="study-time-label">⏳ Typical Mastery Time:</div>
+                            <div class="study-time-value">6-12 months of active mentoring and team leadership</div>
+                        </div>
+                        <div class="resource-links">
+                            <div class="resource-title">🎓 Recommended Learning:</div>
+                            <div class="resource-list">
+                                <a href="#" class="resource-link" onclick="return false;">📖 The Effective Engineer by Edmond Lau</a>
+                                <a href="#" class="resource-link" onclick="return false;">📖 Staff Engineer: Leadership Beyond the Management Track</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 PluralSight: Technical Leadership Skills Path</a>
+                                <a href="#" class="resource-link" onclick="return false;">📄 Google's Code Review Best Practices</a>
+                            </div>
+                        </div>
+                        <div class="project-ideas">
+                            <div class="project-title">💡 Practice Projects:</div>
+                            <ul class="project-list">
+                                <li class="project-item">Mentor 2-3 junior developers through their first major feature</li>
+                                <li class="project-item">Establish code review standards and conduct weekly review sessions</li>
+                                <li class="project-item">Create internal tech talks series on advanced topics</li>
+                                <li class="project-item">Lead refactoring initiative and document best practices for team</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 70%"></div></div>
+        </div>
+
+        <div class="skill-card level-5" onclick="toggleCard(this)" data-skill="skill5">
+            <div class="card-header">
+                <div class="level-badge">LEVEL 5</div>
+                <div class="card-title">Design Software with Production-Ready Standards</div>
+                <span class="card-status-indicator indicator-not-started" id="indicator-skill5"></span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="difficulty-label diff-advanced">⚡ Advanced Level</div>
+            <div class="card-content">
+                Implement best practices for code quality, testing, monitoring, and deployment. Build resilient systems with proper error handling, logging, and recovery mechanisms. Ensure code is maintainable, well-documented, and follows industry standards.
+                <div class="tech-stack">
+                    <div class="tech-tag">Testing (Unit/Integration)</div>
+                    <div class="tech-tag">Monitoring & Logging</div>
+                    <div class="tech-tag">Error Handling</div>
+                    <div class="tech-tag">Documentation</div>
+                    <div class="tech-tag">Code Quality</div>
+                </div>
+                <div class="career-info">
+                    <div class="info-row">
+                        <span class="info-icon">💰</span>
+                        <span class="info-label">PH Salary:</span>
+                        <span class="info-value salary-range">₱60k - 110k/month</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">💼</span>
+                        <span class="info-label">Job Roles:</span>
+                        <div class="job-roles">
+                            <span class="job-role-tag">Senior Developer</span>
+                            <span class="job-role-tag">Full-Stack Engineer</span>
+                            <span class="job-role-tag">Software Engineer III</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">⏱️</span>
+                        <span class="info-label">Experience:</span>
+                        <span class="info-value experience-badge">4-6 years</span>
+                    </div>
+                </div>
+                <div class="ph-companies">
+                    <div class="companies-title">🇵🇬 PH Companies Hiring:</div>
+                    <div class="company-tags">
+                        <span class="company-tag">ConnectOS</span>
+                        <span class="company-tag">Sprout Solutions</span>
+                        <span class="company-tag">Taxumo</span>
+                        <span class="company-tag">Gcash</span>
+                        <span class="company-tag">IBM Philippines</span>
+                    </div>
+                </div>
+                <div class="status-buttons">
+                    <button class="status-btn status-not-started active" onclick="setStatus(event, 'skill5', 'not-started')">⚪ Not Started</button>
+                    <button class="status-btn status-learning" onclick="setStatus(event, 'skill5', 'learning')">🟡 Learning</button>
+                    <button class="status-btn status-proficient" onclick="setStatus(event, 'skill5', 'proficient')">🔵 Proficient</button>
+                    <button class="status-btn status-mastered" onclick="setStatus(event, 'skill5', 'mastered')">🟢 Mastered</button>
+                </div>
+                <div class="resources-section">
+                    <button class="resources-toggle" onclick="toggleResources(event, 'resources5')">
+                        📚 Learning Resources & Projects
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                    <div class="resources-content" id="resources5">
+                        <div class="study-time">
+                            <div class="study-time-label">⏳ Typical Mastery Time:</div>
+                            <div class="study-time-value">8-12 months of implementing production best practices</div>
+                        </div>
+                        <div class="resource-links">
+                            <div class="resource-title">🎓 Recommended Learning:</div>
+                            <div class="resource-list">
+                                <a href="#" class="resource-link" onclick="return false;">📖 The Phoenix Project - DevOps Novel</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 Udemy: Docker & Kubernetes Complete Guide</a>
+                                <a href="#" class="resource-link" onclick="return false;">📄 Jest Documentation - Testing Best Practices</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 Fireship: Production-Ready Code Tutorial Series</a>
+                            </div>
+                        </div>
+                        <div class="project-ideas">
+                            <div class="project-title">💡 Practice Projects:</div>
+                            <ul class="project-list">
+                                <li class="project-item">Implement comprehensive test suite with 80%+ code coverage</li>
+                                <li class="project-item">Set up monitoring with Prometheus/Grafana and alerting system</li>
+                                <li class="project-item">Build CI/CD pipeline with automated testing and deployment</li>
+                                <li class="project-item">Add structured logging, error tracking (Sentry), and performance monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 60%"></div></div>
+        </div>
+
+        <div class="skill-card level-6" onclick="toggleCard(this)" data-skill="skill6">
+            <div class="card-header">
+                <div class="level-badge">LEVEL 6</div>
+                <div class="card-title">Understand Business Needs & Translate to Technical Requirements</div>
+                <span class="card-status-indicator indicator-not-started" id="indicator-skill6"></span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="difficulty-label diff-intermediate">💡 Intermediate Level</div>
+            <div class="card-content">
+                Bridge the gap between business stakeholders and technical teams. Analyze business requirements and convert them into technical specifications. Estimate effort, identify constraints, and propose technical solutions aligned with business goals.
+                <div class="tech-stack">
+                    <div class="tech-tag">Requirements Analysis</div>
+                    <div class="tech-tag">Technical Writing</div>
+                    <div class="tech-tag">Estimation</div>
+                    <div class="tech-tag">Stakeholder Communication</div>
+                    <div class="tech-tag">Business Logic</div>
+                </div>
+                <div class="career-info">
+                    <div class="info-row">
+                        <span class="info-icon">💰</span>
+                        <span class="info-label">PH Salary:</span>
+                        <span class="info-value salary-range">₱50k - 90k/month</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">💼</span>
+                        <span class="info-label">Job Roles:</span>
+                        <div class="job-roles">
+                            <span class="job-role-tag">Mid-Level Developer</span>
+                            <span class="job-role-tag">Software Engineer II</span>
+                            <span class="job-role-tag">Full-Stack Developer</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">⏱️</span>
+                        <span class="info-label">Experience:</span>
+                        <span class="info-value experience-badge">3-5 years</span>
+                    </div>
+                </div>
+                <div class="ph-companies">
+                    <div class="companies-title">🇵🇭 PH Companies Hiring:</div>
+                    <div class="company-tags">
+                        <span class="company-tag">Full Suite</span>
+                        <span class="company-tag">Channelfix</span>
+                        <span class="company-tag">Ingcoph</span>
+                        <span class="company-tag">Booky</span>
+                        <span class="company-tag">AngKaSaPa</span>
+                    </div>
+                </div>
+                <div class="status-buttons">
+                    <button class="status-btn status-not-started active" onclick="setStatus(event, 'skill6', 'not-started')">⚪ Not Started</button>
+                    <button class="status-btn status-learning" onclick="setStatus(event, 'skill6', 'learning')">🟡 Learning</button>
+                    <button class="status-btn status-proficient" onclick="setStatus(event, 'skill6', 'proficient')">🔵 Proficient</button>
+                    <button class="status-btn status-mastered" onclick="setStatus(event, 'skill6', 'mastered')">🟢 Mastered</button>
+                </div>
+                <div class="resources-section">
+                    <button class="resources-toggle" onclick="toggleResources(event, 'resources6')">
+                        📚 Learning Resources & Projects
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                    <div class="resources-content" id="resources6">
+                        <div class="study-time">
+                            <div class="study-time-label">⏳ Typical Mastery Time:</div>
+                            <div class="study-time-value">6-9 months of cross-functional collaboration</div>
+                        </div>
+                        <div class="resource-links">
+                            <div class="resource-title">🎓 Recommended Learning:</div>
+                            <div class="resource-list">
+                                <a href="#" class="resource-link" onclick="return false;">📖 User Story Mapping by Jeff Patton</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 Coursera: Business Analysis Fundamentals</a>
+                                <a href="#" class="resource-link" onclick="return false;">📄 Atlassian: Writing Effective Requirements</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 LinkedIn Learning: Technical Communication</a>
+                            </div>
+                        </div>
+                        <div class="project-ideas">
+                            <div class="project-title">💡 Practice Projects:</div>
+                            <ul class="project-list">
+                                <li class="project-item">Create technical specs from business requirements for new feature</li>
+                                <li class="project-item">Lead requirements gathering workshops with stakeholders</li>
+                                <li class="project-item">Document API specifications and integration guides</li>
+                                <li class="project-item">Estimate and break down complex epics into manageable user stories</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div>
+        </div>
+
+        <div class="skill-card level-7" onclick="toggleCard(this)" data-skill="skill7">
+            <div class="card-header">
+                <div class="level-badge">LEVEL 7</div>
+                <div class="card-title">Exhibit Good Front-End/Back-End Skills in Building/Maintaining Apps</div>
+                <span class="card-status-indicator indicator-not-started" id="indicator-skill7"></span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="difficulty-label diff-intermediate">💡 Intermediate Level</div>
+            <div class="card-content">
+                Demonstrate solid competency in both front-end and back-end development. Build complete features end-to-end, maintain existing codebases, and troubleshoot issues across the full stack. Work independently on medium-complexity tasks.
+                <div class="tech-stack">
+                    <div class="tech-tag">HTML/CSS/JavaScript</div>
+                    <div class="tech-tag">Node.js</div>
+                    <div class="tech-tag">Databases (SQL/NoSQL)</div>
+                    <div class="tech-tag">RESTful APIs</div>
+                    <div class="tech-tag">Version Control (Git)</div>
+                </div>
+                <div class="career-info">
+                    <div class="info-row">
+                        <span class="info-icon">💰</span>
+                        <span class="info-label">PH Salary:</span>
+                        <span class="info-value salary-range">₱40k - 70k/month</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">💼</span>
+                        <span class="info-label">Job Roles:</span>
+                        <div class="job-roles">
+                            <span class="job-role-tag">Full-Stack Developer</span>
+                            <span class="job-role-tag">Software Engineer</span>
+                            <span class="job-role-tag">Web Developer</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">⏱️</span>
+                        <span class="info-label">Experience:</span>
+                        <span class="info-value experience-badge">2-4 years</span>
+                    </div>
+                </div>
+                <div class="ph-companies">
+                    <div class="companies-title">🇵🇭 PH Companies Hiring:</div>
+                    <div class="company-tags">
+                        <span class="company-tag">TalentView</span>
+                        <span class="company-tag">FullSpeed Technologies</span>
+                        <span class="company-tag">OutSystems</span>
+                        <span class="company-tag">Exist Software</span>
+                        <span class="company-tag">Orange & Bronze</span>
+                    </div>
+                </div>
+                <div class="status-buttons">
+                    <button class="status-btn status-not-started active" onclick="setStatus(event, 'skill7', 'not-started')">⚪ Not Started</button>
+                    <button class="status-btn status-learning" onclick="setStatus(event, 'skill7', 'learning')">🟡 Learning</button>
+                    <button class="status-btn status-proficient" onclick="setStatus(event, 'skill7', 'proficient')">🔵 Proficient</button>
+                    <button class="status-btn status-mastered" onclick="setStatus(event, 'skill7', 'mastered')">🟢 Mastered</button>
+                </div>
+                <div class="resources-section">
+                    <button class="resources-toggle" onclick="toggleResources(event, 'resources7')">
+                        📚 Learning Resources & Projects
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                    <div class="resources-content" id="resources7">
+                        <div class="study-time">
+                            <div class="study-time-label">⏳ Typical Mastery Time:</div>
+                            <div class="study-time-value">6-10 months of consistent full-stack development</div>
+                        </div>
+                        <div class="resource-links">
+                            <div class="resource-title">🎓 Recommended Learning:</div>
+                            <div class="resource-list">
+                                <a href="#" class="resource-link" onclick="return false;">🎥 The Odin Project - Full-Stack JavaScript Path (FREE)</a>
+                                <a href="#" class="resource-link" onclick="return false;">📄 MDN Web Docs - JavaScript Guide</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 Traversy Media: MERN Stack Front To Back</a>
+                                <a href="#" class="resource-link" onclick="return false;">📖 Eloquent JavaScript (FREE online)</a>
+                            </div>
+                        </div>
+                        <div class="project-ideas">
+                            <div class="project-title">💡 Practice Projects:</div>
+                            <ul class="project-list">
+                                <li class="project-item">Build a full-featured blog with authentication and comments</li>
+                                <li class="project-item">Create task management app with drag-and-drop functionality</li>
+                                <li class="project-item">Develop weather app using external APIs and geolocation</li>
+                                <li class="project-item">Build e-commerce site with cart, checkout, and payment integration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
+        </div>
+
+        <div class="skill-card level-8" onclick="toggleCard(this)" data-skill="skill8">
+            <div class="card-header">
+                <div class="level-badge">LEVEL 8</div>
+                <div class="card-title">Proficiency in ReactJS and Express</div>
+                <span class="card-status-indicator indicator-not-started" id="indicator-skill8"></span>
+                <span class="expand-icon">▼</span>
+            </div>
+            <div class="difficulty-label diff-beginner">✨ Foundation Level</div>
+            <div class="card-content">
+                Build functional web applications using ReactJS for the front-end and Express.js for the back-end. Understand component lifecycle, state management, routing, and middleware. Create CRUD applications with proper data flow and API integration.
+                <div class="tech-stack">
+                    <div class="tech-tag">React Hooks</div>
+                    <div class="tech-tag">Express Middleware</div>
+                    <div class="tech-tag">REST APIs</div>
+                    <div class="tech-tag">State Management</div>
+                    <div class="tech-tag">Component Design</div>
+                </div>
+                <div class="career-info">
+                    <div class="info-row">
+                        <span class="info-icon">💰</span>
+                        <span class="info-label">PH Salary:</span>
+                        <span class="info-value salary-range">₱25k - 50k/month</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">💼</span>
+                        <span class="info-label">Job Roles:</span>
+                        <div class="job-roles">
+                            <span class="job-role-tag">Junior Developer</span>
+                            <span class="job-role-tag">Associate Engineer</span>
+                            <span class="job-role-tag">React Developer</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-icon">⏱️</span>
+                        <span class="info-label">Experience:</span>
+                        <span class="info-value experience-badge">0-2 years</span>
+                    </div>
+                </div>
+                <div class="ph-companies">
+                    <div class="companies-title">🇵🇭 PH Companies Hiring:</div>
+                    <div class="company-tags">
+                        <span class="company-tag">Trend Micro</span>
+                        <span class="company-tag">NinjaCat</span>
+                        <span class="company-tag">Pointwest</span>
+                        <span class="company-tag">Datacom</span>
+                        <span class="company-tag">7-Eleven PH</span>
+                    </div>
+                </div>
+                <div class="status-buttons">
+                    <button class="status-btn status-not-started active" onclick="setStatus(event, 'skill8', 'not-started')">⚪ Not Started</button>
+                    <button class="status-btn status-learning" onclick="setStatus(event, 'skill8', 'learning')">🟡 Learning</button>
+                    <button class="status-btn status-proficient" onclick="setStatus(event, 'skill8', 'proficient')">🔵 Proficient</button>
+                    <button class="status-btn status-mastered" onclick="setStatus(event, 'skill8', 'mastered')">🟢 Mastered</button>
+                </div>
+                <div class="resources-section">
+                    <button class="resources-toggle" onclick="toggleResources(event, 'resources8')">
+                        📚 Learning Resources & Projects
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                    <div class="resources-content" id="resources8">
+                        <div class="study-time">
+                            <div class="study-time-label">⏳ Typical Mastery Time:</div>
+                            <div class="study-time-value">3-6 months of dedicated learning and practice</div>
+                        </div>
+                        <div class="resource-links">
+                            <div class="resource-title">🎓 Recommended Learning:</div>
+                            <div class="resource-list">
+                                <a href="#" class="resource-link" onclick="return false;">🎥 FreeCodeCamp: React Course for Beginners (FREE)</a>
+                                <a href="#" class="resource-link" onclick="return false;">📄 React Official Documentation - Learn React</a>
+                                <a href="#" class="resource-link" onclick="return false;">🎥 Net Ninja: Node.js & Express Tutorial (FREE)</a>
+                                <a href="#" class="resource-link" onclick="return false;">📖 You Don't Know JS (FREE book series)</a>
+                            </div>
+                        </div>
+                        <div class="project-ideas">
+                            <div class="project-title">💡 Practice Projects:</div>
+                            <ul class="project-list">
+                                <li class="project-item">Build a React todo app with local state and CRUD operations</li>
+                                <li class="project-item">Create an Express REST API with MongoDB for a contact manager</li>
+                                <li class="project-item">Develop a recipe finder app consuming external food APIs</li>
+                                <li class="project-item">Build a simple social media feed with posts, likes, and comments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 25%"></div></div>
+        </div>
+
+        <div class="communities-section">
+            <div class="communities-title">🇵🇭 Filipino Tech Communities & Groups</div>
+            <div class="community-list">
+                <div class="community-item" onclick="alert('Join: Philippine Web Developers Community on Facebook')">
+                    <div class="community-icon">👥</div>
+                    <div class="community-info">
+                        <div class="community-name">Philippine Web Developers</div>
+                        <div class="community-desc">40k+ members | Facebook Group | Best for networking & job postings</div>
+                    </div>
+                </div>
+                <div class="community-item" onclick="alert('Join: ReactJS Philippines on Facebook')">
+                    <div class="community-icon">⚛️</div>
+                    <div class="community-info">
+                        <div class="community-name">ReactJS Philippines</div>
+                        <div class="community-desc">15k+ members | Facebook Group | React-focused discussions</div>
+                    </div>
+                </div>
+                <div class="community-item" onclick="alert('Join: DevCon PH Discord Server')">
+                    <div class="community-icon">💬</div>
+                    <div class="community-info">
+                        <div class="community-name">DevCon PH</div>
+                        <div class="community-desc">Discord Server | Official PH developer community | Events & meetups</div>
+                    </div>
+                </div>
+                <div class="community-item" onclick="alert('Join: Filipino Full-Stack Developers on Facebook')">
+                    <div class="community-icon">🎯</div>
+                    <div class="community-info">
+                        <div class="community-name">Filipino Full-Stack Developers</div>
+                        <div class="community-desc">8k+ members | Facebook Group | Full-stack specific resources</div>
+                    </div>
+                </div>
+                <div class="community-item" onclick="alert('Join: Tech Career Shifter Philippines on Facebook')">
+                    <div class="community-icon">🔄</div>
+                    <div class="community-info">
+                        <div class="community-name">Tech Career Shifter PH</div>
+                        <div class="community-desc">25k+ members | Facebook Group | Perfect for beginners & career changers</div>
+                    </div>
+                </div>
+                <div class="community-item" onclick="alert('Join: Python Philippines on Facebook')">
+                    <div class="community-icon">🐍</div>
+                    <div class="community-info">
+                        <div class="community-name">Python Philippines</div>
+                        <div class="community-desc">10k+ members | Facebook Group | Backend Python developers</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gap-analyzer">
+            <div class="gap-title">🎯 Your Skill Gap Analysis & Next Steps</div>
+            <div class="gap-content" id="gapAnalysis">
+                <p style="text-align: center; font-size: 0.75rem; opacity: 0.8;">Mark some skills to see personalized recommendations!</p>
+            </div>
+        </div>
+
+        <div class="share-section">
+            <button class="share-btn" onclick="generateProgressCard()">
+                📤 Share Your Progress Card
+            </button>
+            <div id="progressCardContainer"></div>
+        </div>
+
+        <!-- Quiz Modal -->
+        <div class="quiz-modal" id="quizModal">
+            <div class="quiz-content">
+                <div class="quiz-header" id="quizHeader">Self-Assessment Quiz</div>
+                <div id="quizQuestions"></div>
+                <div class="quiz-actions">
+                    <button class="quiz-btn-secondary quiz-btn-close" onclick="closeQuiz()">Cancel</button>
+                    <button class="quiz-btn-secondary quiz-btn-submit" onclick="submitQuiz()">Submit Quiz</button>
+                </div>
+                <div id="quizResultContainer"></div>
+            </div>
+        </div>
+
+        <footer>
+            <div>🚀 Your journey to becoming an elite Full-Stack Engineer</div>
+            <div style="margin-top: 1vh; opacity: 0.7;">Take quizzes • Track progress • Share achievements • 2026 Edition</div>
+        </footer>
+    </div>
+
+    <script>
+        // Store skill statuses in memory
+        let skillStatuses = {
+            skill1: 'not-started',
+            skill2: 'not-started',
+            skill3: 'not-started',
+            skill4: 'not-started',
+            skill5: 'not-started',
+            skill6: 'not-started',
+            skill7: 'not-started',
+            skill8: 'not-started'
+        };
+
+        // Store current filter and view mode
+        let currentFilter = 'all';
+        let currentView = 'card';
+        let isDarkMode = false;
+        let currentSort = 'hardest';
+
+        // Skill difficulty mapping
+        const skillDifficulty = {
+            skill1: 'expert',
+            skill2: 'expert',
+            skill3: 'advanced',
+            skill4: 'advanced',
+            skill5: 'advanced',
+            skill6: 'intermediate',
+            skill7: 'intermediate',
+            skill8: 'beginner'
+        };
+
+        // Skill order mapping
+        const skillOrder = {
+            hardest: ['skill1', 'skill2', 'skill3', 'skill4', 'skill5', 'skill6', 'skill7', 'skill8'],
+            easiest: ['skill8', 'skill7', 'skill6', 'skill5', 'skill4', 'skill3', 'skill2', 'skill1'],
+            alphabetical: ['skill3', 'skill5', 'skill6', 'skill7', 'skill4', 'skill1', 'skill2', 'skill8']
+        };
+
+        const skillTitles = {
+            skill1: 'Lead Challenging Projects & Handle Full SDLC',
+            skill2: 'Make Key Decisions on Stack & Software Design',
+            skill3: 'Architect Full-Stack Projects from Scratch',
+            skill4: 'Lead and Mentor Other Technical Staff',
+            skill5: 'Design Software with Production-Ready Standards',
+            skill6: 'Understand Business Needs & Translate to Technical Requirements',
+            skill7: 'Exhibit Good Front-End/Back-End Skills in Building/Maintaining Apps',
+            skill8: 'Proficiency in ReactJS and Express'
+        };
+
+        // Quiz questions for each skill
+        const quizData = {
+            skill1: [
+                {
+                    question: "Have you successfully led a complete project from requirements to production deployment?",
+                    options: ["Yes, multiple times", "Yes, once or twice", "Partially involved", "Not yet"]
+                },
+                {
+                    question: "Can you independently manage project timelines, handle blockers, and coordinate with stakeholders?",
+                    options: ["Very confident", "Somewhat confident", "Need guidance", "Not experienced"]
+                },
+                {
+                    question: "How comfortable are you with making critical technical decisions that impact the entire project?",
+                    options: ["Very comfortable", "Mostly comfortable", "Need support", "Not comfortable yet"]
+                }
+            ],
+            skill2: [
+                {
+                    question: "Have you evaluated and selected technology stacks for real projects?",
+                    options: ["Yes, multiple projects", "Yes, one project", "Participated in evaluation", "Not yet"]
+                },
+                {
+                    question: "Can you articulate trade-offs between different architectural approaches (monolith vs microservices)?",
+                    options: ["Yes, confidently", "Yes, with some gaps", "Basic understanding", "Need to learn more"]
+                },
+                {
+                    question: "How experienced are you with design patterns and when to apply them?",
+                    options: ["Expert level", "Intermediate level", "Beginner level", "Just learning"]
+                }
+            ],
+            skill3: [
+                {
+                    question: "Have you designed a complete system architecture (database, APIs, frontend) from scratch?",
+                    options: ["Yes, multiple systems", "Yes, one system", "Partial systems", "Not yet"]
+                },
+                {
+                    question: "Can you design scalable database schemas with proper normalization and indexing strategies?",
+                    options: ["Very confident", "Mostly confident", "Basic understanding", "Need to learn"]
+                },
+                {
+                    question: "How comfortable are you with planning for security, performance, and scalability upfront?",
+                    options: ["Very comfortable", "Somewhat comfortable", "Basic knowledge", "Need guidance"]
+                }
+            ],
+            skill4: [
+                {
+                    question: "Have you actively mentored junior developers through code reviews and pair programming?",
+                    options: ["Yes, regularly", "Yes, occasionally", "A few times", "Not yet"]
+                },
+                {
+                    question: "Can you provide constructive feedback that helps others grow without micromanaging?",
+                    options: ["Yes, effectively", "Yes, working on it", "Learning how", "Need experience"]
+                },
+                {
+                    question: "How comfortable are you leading technical discussions and knowledge-sharing sessions?",
+                    options: ["Very comfortable", "Somewhat comfortable", "A bit nervous", "Need practice"]
+                }
+            ],
+            skill5: [
+                {
+                    question: "Have you implemented comprehensive testing strategies (unit, integration, e2e)?",
+                    options: ["Yes, routinely", "Yes, sometimes", "Basic tests only", "Need to learn"]
+                },
+                {
+                    question: "Can you set up monitoring, logging, and alerting systems for production applications?",
+                    options: ["Yes, confidently", "Yes, with help", "Basic setup", "Not yet"]
+                },
+                {
+                    question: "How experienced are you with CI/CD pipelines and deployment automation?",
+                    options: ["Very experienced", "Some experience", "Basic knowledge", "Just learning"]
+                }
+            ],
+            skill6: [
+                {
+                    question: "Have you successfully gathered requirements from non-technical stakeholders?",
+                    options: ["Yes, many times", "Yes, a few times", "Once or twice", "Not yet"]
+                },
+                {
+                    question: "Can you translate business needs into technical specifications and user stories?",
+                    options: ["Yes, effectively", "Yes, learning", "Need guidance", "Not experienced"]
+                },
+                {
+                    question: "How confident are you in estimating effort and breaking down complex features?",
+                    options: ["Very confident", "Somewhat confident", "Still learning", "Need experience"]
+                }
+            ],
+            skill7: [
+                {
+                    question: "Can you independently build complete features from UI to database?",
+                    options: ["Yes, regularly", "Yes, sometimes", "With some help", "Need guidance"]
+                },
+                {
+                    question: "How comfortable are you debugging issues across the full stack?",
+                    options: ["Very comfortable", "Mostly comfortable", "Still learning", "Need help"]
+                },
+                {
+                    question: "Have you worked with both SQL and NoSQL databases in real projects?",
+                    options: ["Yes, both extensively", "Yes, primarily one", "Limited experience", "Not yet"]
+                }
+            ],
+            skill8: [
+                {
+                    question: "Can you build a React application with hooks, state management, and routing?",
+                    options: ["Yes, confidently", "Yes, basic apps", "Learning", "Just started"]
+                },
+                {
+                    question: "Have you created RESTful APIs with Express including middleware and error handling?",
+                    options: ["Yes, multiple APIs", "Yes, one API", "Tutorial projects", "Not yet"]
+                },
+                {
+                    question: "How comfortable are you with async JavaScript (promises, async/await)?",
+                    options: ["Very comfortable", "Somewhat comfortable", "Still learning", "Confusing"]
+                }
+            ]
+        };
+
+        let currentQuizSkill = null;
+        let quizAnswers = {};
+
+        function sortSkills(sortType) {
+            currentSort = sortType;
+            
+            // Update active sort button
+            document.querySelectorAll('.sort-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            const container = document.querySelector('.container');
+            const cards = Array.from(document.querySelectorAll('.skill-card'));
+            const footer = document.querySelector('footer');
+            const communities = document.querySelector('.communities-section');
+            
+            // Sort based on type
+            let sortedOrder;
+            if (sortType === 'alphabetical') {
+                // Sort alphabetically by title
+                cards.sort((a, b) => {
+                    const titleA = skillTitles[a.getAttribute('data-skill')];
+                    const titleB = skillTitles[b.getAttribute('data-skill')];
+                    return titleA.localeCompare(titleB);
+                });
+            } else {
+                sortedOrder = skillOrder[sortType];
+                cards.sort((a, b) => {
+                    const idA = a.getAttribute('data-skill');
+                    const idB = b.getAttribute('data-skill');
+                    return sortedOrder.indexOf(idA) - sortedOrder.indexOf(idB);
+                });
+            }
+            
+            // Remove and re-append cards in new order
+            cards.forEach(card => card.remove());
+            cards.forEach(card => container.insertBefore(card, communities));
+        }
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode');
+            
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            
+            if (isDarkMode) {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark Mode';
+            } else {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light Mode';
+            }
+        }
+
+        function filterSkills(difficulty) {
+            currentFilter = difficulty;
+            
+            // Update active filter button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Show/hide cards based on filter
+            document.querySelectorAll('.skill-card').forEach(card => {
+                const skillId = card.getAttribute('data-skill');
+                const skillDiff = skillDifficulty[skillId];
+                
+                if (difficulty === 'all' || skillDiff === difficulty) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        function toggleView(view) {
+            currentView = view;
+            
+            // Update active view button
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Apply view style to cards
+            document.querySelectorAll('.skill-card').forEach(card => {
+                if (view === 'list') {
+                    card.classList.add('list-view');
+                    card.classList.remove('expanded');
+                } else {
+                    card.classList.remove('list-view');
+                }
+            });
+        }
+
+        function toggleCard(card) {
+            // Don't toggle if clicking on buttons
+            if (event.target.classList.contains('status-btn')) {
+                return;
+            }
+            
+            // Close all other cards
+            const allCards = document.querySelectorAll('.skill-card');
+            allCards.forEach(c => {
+                if (c !== card && c.classList.contains('expanded')) {
+                    c.classList.remove('expanded');
+                }
+            });
+            
+            // Toggle current card
+            card.classList.toggle('expanded');
+        }
+
+        function setStatus(event, skillId, status) {
+            event.stopPropagation(); // Prevent card toggle
+            
+            // Update status in memory
+            skillStatuses[skillId] = status;
+            
+            // Update button states
+            const card = document.querySelector(`[data-skill="${skillId}"]`);
+            const buttons = card.querySelectorAll('.status-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update indicator dot
+            const indicator = document.getElementById(`indicator-${skillId}`);
+            indicator.className = `card-status-indicator indicator-${status}`;
+            
+            // Update progress counter
+            updateProgress();
+            
+            // Update gap analysis
+            updateGapAnalysis();
+        }
+
+        function updateProgress() {
+            const masteredCount = Object.values(skillStatuses).filter(status => status === 'mastered').length;
+            const percentage = Math.round((masteredCount / 8) * 100);
+            
+            document.getElementById('masteredCount').textContent = masteredCount;
+            document.getElementById('progressPercentage').textContent = percentage + '%';
+            
+            // Update progress percentage color
+            const percentageEl = document.getElementById('progressPercentage');
+            if (percentage === 0) {
+                percentageEl.style.background = 'rgba(149, 165, 166, 0.9)';
+            } else if (percentage < 50) {
+                percentageEl.style.background = 'rgba(243, 156, 18, 0.9)';
+            } else if (percentage < 100) {
+                percentageEl.style.background = 'rgba(52, 152, 219, 0.9)';
+            } else {
+                percentageEl.style.background = 'rgba(46, 204, 113, 0.9)';
+            }
+        }
+
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                // Reset all statuses to not-started
+                Object.keys(skillStatuses).forEach(skillId => {
+                    skillStatuses[skillId] = 'not-started';
+                    
+                    // Reset buttons
+                    const card = document.querySelector(`[data-skill="${skillId}"]`);
+                    const buttons = card.querySelectorAll('.status-btn');
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    buttons[0].classList.add('active'); // Activate first button (not-started)
+                    
+                    // Reset indicator
+                    const indicator = document.getElementById(`indicator-${skillId}`);
+                    indicator.className = 'card-status-indicator indicator-not-started';
+                });
+                
+                // Update progress display
+                updateProgress();
+                
+                // Reset gap analysis
+                document.getElementById('gapAnalysis').innerHTML = '<p style="text-align: center; font-size: 0.75rem; opacity: 0.8;">Mark some skills to see personalized recommendations!</p>';
+                
+                // Clear progress card
+                document.getElementById('progressCardContainer').innerHTML = '';
+            }
+        }
+
+        function toggleResources(event, resourcesId) {
+            event.stopPropagation(); // Prevent card toggle
+            
+            const resourcesContent = document.getElementById(resourcesId);
+            const toggleButton = event.currentTarget;
+            const arrow = toggleButton.querySelector('.toggle-arrow');
+            
+            // Toggle the resources section
+            resourcesContent.classList.toggle('open');
+            
+            // Rotate arrow
+            if (resourcesContent.classList.contains('open')) {
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function openQuiz(event, skillId) {
+            event.stopPropagation();
+            currentQuizSkill = skillId;
+            quizAnswers = {};
+            
+            const modal = document.getElementById('quizModal');
+            const header = document.getElementById('quizHeader');
+            const questionsContainer = document.getElementById('quizQuestions');
+            const resultContainer = document.getElementById('quizResultContainer');
+            
+            header.textContent = `Self-Assessment: ${skillTitles[skillId]}`;
+            resultContainer.innerHTML = '';
+            
+            // Generate quiz questions
+            const questions = quizData[skillId];
+            let questionsHTML = '';
+            
+            questions.forEach((q, index) => {
+                questionsHTML += `
+                    <div class="quiz-question">
+                        <div class="question-text">${index + 1}. ${q.question}</div>
+                        <div class="quiz-options">
+                            ${q.options.map((option, optIndex) => `
+                                <div class="quiz-option" onclick="selectOption(${index}, ${optIndex}, '${skillId}')">
+                                    ${option}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            questionsContainer.innerHTML = questionsHTML;
+            modal.classList.add('open');
+        }
+
+        function closeQuiz() {
+            document.getElementById('quizModal').classList.remove('open');
+            currentQuizSkill = null;
+            quizAnswers = {};
+        }
+
+        function selectOption(questionIndex, optionIndex, skillId) {
+            // Deselect all options for this question
+            const questionElement = document.querySelectorAll('.quiz-question')[questionIndex];
+            questionElement.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+            
+            // Select clicked option
+            event.target.classList.add('selected');
+            quizAnswers[questionIndex] = optionIndex;
+        }
+
+        function submitQuiz() {
+            const questions = quizData[currentQuizSkill];
+            
+            // Check if all questions answered
+            if (Object.keys(quizAnswers).length !== questions.length) {
+                alert('Please answer all questions before submitting!');
+                return;
+            }
+            
+            // Calculate score (0 = best answer, 3 = weakest answer)
+            let totalScore = 0;
+            Object.values(quizAnswers).forEach(answer => {
+                totalScore += answer;
+            });
+            
+            const maxScore = questions.length * 3;
+            const percentage = Math.round((1 - (totalScore / maxScore)) * 100);
+            
+            let recommendation = '';
+            let suggestedStatus = '';
+            
+            if (percentage >= 80) {
+                recommendation = "Excellent! You demonstrate mastery of this skill. Consider marking it as 'Mastered' and helping others learn.";
+                suggestedStatus = 'mastered';
+            } else if (percentage >= 60) {
+                recommendation = "Good progress! You're proficient but have room to grow. Keep practicing and consider marking as 'Proficient'.";
+                suggestedStatus = 'proficient';
+            } else if (percentage >= 40) {
+                recommendation = "You're on the right track! Focus on the areas you marked lower and continue learning. Mark as 'Learning'.";
+                suggestedStatus = 'learning';
+            } else {
+                recommendation = "This skill needs more attention. Review the learning resources and start with beginner projects. Mark as 'Learning' or 'Not Started'.";
+                suggestedStatus = 'learning';
+            }
+            
+            const resultContainer = document.getElementById('quizResultContainer');
+            resultContainer.innerHTML = `
+                <div class="quiz-result">
+                    <h3 style="margin-bottom: 2%; font-size: 0.85rem;">Your Score: ${percentage}%</h3>
+                    <p style="margin-bottom: 2%;">${recommendation}</p>
+                    <button class="quiz-btn-secondary quiz-btn-submit" onclick="applyQuizResult('${currentQuizSkill}', '${suggestedStatus}'); closeQuiz();" style="width: 100%; margin-top: 2%;">
+                        Apply Suggested Status
+                    </button>
+                </div>
+            `;
+            
+            updateGapAnalysis();
+        }
+
+        function applyQuizResult(skillId, status) {
+            // Update the status
+            skillStatuses[skillId] = status;
+            
+            // Update UI
+            const card = document.querySelector(`[data-skill="${skillId}"]`);
+            const buttons = card.querySelectorAll('.status-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            const statusMap = { 'not-started': 0, 'learning': 1, 'proficient': 2, 'mastered': 3 };
+            buttons[statusMap[status]].classList.add('active');
+            
+            // Update indicator
+            const indicator = document.getElementById(`indicator-${skillId}`);
+            indicator.className = `card-status-indicator indicator-${status}`;
+            
+            updateProgress();
+            updateGapAnalysis();
+        }
+
+        function updateGapAnalysis() {
+            const gapContainer = document.getElementById('gapAnalysis');
+            
+            // Find skills not mastered
+            const notMastered = Object.entries(skillStatuses).filter(([id, status]) => status !== 'mastered');
+            const learning = Object.entries(skillStatuses).filter(([id, status]) => status === 'learning');
+            const mastered = Object.entries(skillStatuses).filter(([id, status]) => status === 'mastered');
+            
+            if (notMastered.length === 0) {
+                gapContainer.innerHTML = `
+                    <div class="gap-item">
+                        <div class="gap-label">🎉 Congratulations!</div>
+                        <div class="gap-text">You've marked all skills as mastered! You're ready for top-tier Full-Stack Engineer roles in the Philippines.</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            
+            // Find next skill to focus on (highest level not mastered)
+            const nextSkill = notMastered.sort((a, b) => {
+                const orderA = parseInt(a[0].replace('skill', ''));
+                const orderB = parseInt(b[0].replace('skill', ''));
+                return orderA - orderB;
+            })[0];
+            
+            html += `
+                <div class="gap-item">
+                    <div class="gap-label">🎯 Focus Area:</div>
+                    <div class="gap-text"><strong>${skillTitles[nextSkill[0]]}</strong> - This is your next key milestone to advance your career.</div>
+                </div>
+            `;
+            
+            if (learning.length > 0) {
+                html += `
+                    <div class="gap-item">
+                        <div class="gap-label">📚 Currently Learning (${learning.length}):</div>
+                        <div class="gap-text">${learning.map(([id]) => skillTitles[id]).join(', ')}</div>
+                    </div>
+                `;
+            }
+            
+            if (mastered.length > 0) {
+                html += `
+                    <div class="gap-item">
+                        <div class="gap-label">✅ Mastered (${mastered.length}/8):</div>
+                        <div class="gap-text">Great progress! You've mastered ${Math.round((mastered.length / 8) * 100)}% of the full-stack engineering skills.</div>
+                    </div>
+                `;
+            }
+            
+            const notStarted = Object.entries(skillStatuses).filter(([id, status]) => status === 'not-started');
+            if (notStarted.length > 0) {
+                html += `
+                    <div class="gap-item">
+                        <div class="gap-label">💡 Recommendation:</div>
+                        <div class="gap-text">Start with ${skillTitles[notStarted[notStarted.length - 1][0]]} (Level ${notStarted[notStarted.length - 1][0].replace('skill', '')}) - it's the most accessible skill you haven't started yet.</div>
+                    </div>
+                `;
+            }
+            
+            gapContainer.innerHTML = html;
+        }
+
+        function generateProgressCard() {
+            const container = document.getElementById('progressCardContainer');
+            
+            // Calculate stats
+            const masteredCount = Object.values(skillStatuses).filter(s => s === 'mastered').length;
+            const learningCount = Object.values(skillStatuses).filter(s => s === 'learning').length;
+            const proficientCount = Object.values(skillStatuses).filter(s => s === 'proficient').length;
+            const percentage = Math.round((masteredCount / 8) * 100);
+            
+            // Get mastered skills
+            const masteredSkills = Object.entries(skillStatuses)
+                .filter(([id, status]) => status === 'mastered')
+                .map(([id]) => skillTitles[id].split(' ').slice(0, 3).join(' ') + '...');
+            
+            container.innerHTML = `
+                <div class="progress-card">
+                    <div class="card-title-main">🇵🇭 Full-Stack Engineer Progress 2026</div>
+                    <div class="progress-stats">
+                        <div class="stat-box">
+                            <div class="stat-value">${masteredCount}/8</div>
+                            <div class="stat-label">Skills Mastered</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">${percentage}%</div>
+                            <div class="stat-label">Complete</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">${learningCount}</div>
+                            <div class="stat-label">In Progress</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value">${proficientCount}</div>
+                            <div class="stat-label">Proficient</div>
+                        </div>
+                    </div>
+                    ${masteredSkills.length > 0 ? `
+                        <div style="margin-top: 3%; text-align: center; font-size: 0.7rem; font-weight: 600;">Mastered Skills:</div>
+                        <div class="skill-badges">
+                            ${masteredSkills.map(skill => `<div class="skill-badge-mini">${skill}</div>`).join('')}
+                        </div>
+                    ` : ''}
+                    <div style="margin-top: 4%; text-align: center; font-size: 0.6rem; opacity: 0.8;">
+                        Screenshot this card to share your progress! 📸
+                    </div>
+                </div>
+            `;
+        }
+
+        // Add touch feedback
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('touchstart', function(e) {
+                if (!e.target.classList.contains('status-btn') && !e.target.classList.contains('quiz-btn') && !e.target.classList.contains('resources-toggle')) {
+                    this.style.transform = 'scale(0.98)';
+                }
+            });
+            
+            card.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 100);
+            });
+        });
+
+        // Initialize progress and gap analysis on load
+        updateProgress();
+        updateGapAnalysis();
+    </script>
+</body>
+</html>
